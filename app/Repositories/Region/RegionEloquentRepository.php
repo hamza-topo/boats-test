@@ -28,13 +28,10 @@ class RegionEloquentRepository extends EloquentRepository implements RegionRepos
        
       $regions = Region::query()
       ->whereHas('bases',function(\Illuminate\Database\Eloquent\Builder $builder) use ($query){
-
           return $builder->where('name_fr', 'LIKE','%'.$query.'%');
-          
-      })
+        })
       ->orWhere('name_fr','LIKE','%'.$query.'%')
       ->get()->take(10);
-
       return  RegionResource::collection($regions);
     }
     

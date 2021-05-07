@@ -65,7 +65,8 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height" id="app">
-            <example-component></example-component>
+            <search-component></search-component>
+            <result-component></result-component>
         </div>
     </body>
     <script src="{{ mix('/js/app.js') }}"></script>

@@ -18,11 +18,7 @@ class SearchController extends Controller
 
     public function getResults()
     {
-        isset($_GET['query']) ? $query = $_GET['query'] : $query = '';
+        return  isset($_GET['query']) && $_GET['query']!='' ?  $this->regionRepository->searchRepository($_GET['query']) : ["data"=>[]];
 
-        return  $this->regionRepository->searchRepository($query);
-
-        
-       
     }
 }

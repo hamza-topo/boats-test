@@ -12,7 +12,10 @@ class Region extends Model
 
     public function bases()
     {
-        return $this->hasMany(Base::class,'region_id');
+        //order the bases by type id so the cities comes first 
+        return $this->hasMany(Base::class,'region_id')->orderBy('type','DESC');
     }
+
+    
   
 }

@@ -14,4 +14,9 @@ class Base extends Model
     {
         return $this->belongsTo(Region::class,'region_id');
     }
+
+    public function baseType()
+    {
+        return  $this->belongsTo(BaseType::class,'type');
+    }
 }
