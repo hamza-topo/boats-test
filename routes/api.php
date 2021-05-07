@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('/')->namespace('Api')->group(function(Illuminate\Routing\Router $router){
     /** Resource Route for regions */
-    $router->resource('regions','RegionController');
+    $router->resource('regions','SearchController');
     $router->get('/search','SearchController@getResults');
 
 });

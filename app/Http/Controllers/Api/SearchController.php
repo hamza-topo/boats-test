@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Region\RegionRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Region;
 class SearchController extends Controller
 {
 
@@ -20,5 +20,9 @@ class SearchController extends Controller
     {
         return  isset($_GET['query']) && $_GET['query']!='' ?  $this->regionRepository->searchRepository($_GET['query']) : ["data"=>[]];
 
+    }
+
+    public function index(){
+        return Region::all();
     }
 }
