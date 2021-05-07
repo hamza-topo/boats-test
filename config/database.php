@@ -1,9 +1,13 @@
 <?php
+$url = parse_url("mysql://bdb37fa597a8d0:d2168033@us-cdbr-east-03.cleardb.com/heroku_73a8b35bc6b7106?reconnect=true");
 
-use Illuminate\Support\Str;
-
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
 return [
 
+    
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -15,7 +19,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'deploy'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,15 +41,12 @@ return [
 
         'sqlite' => [
             'driver' => 'sqlite',
-            'url' => env('DATABASE_URL'),
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
@@ -55,15 +56,22 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'prefix_indexes' => true,
             'strict' => true,
-            'engine' => 'MyIsam',
-           
+            'engine' => null,
         ],
+        'deploy' => array(
+            'driver' => 'mysql',
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+        ),
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'forge'),
@@ -71,14 +79,12 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
-            'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'forge'),
@@ -86,7 +92,6 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
-            'prefix_indexes' => true,
         ],
 
     ],
@@ -110,34 +115,27 @@ return [
     |--------------------------------------------------------------------------
     |
     | Redis is an open source, fast, and advanced key-value store that also
-    | provides a richer body of commands than a typical key-value system
+    | provides a richer set of commands than a typical key-value systems
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'phpredis'),
-
-        'options' => [
-            'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
-        ],
+        'client' => 'predis',
 
         'default' => [
-            'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_DB', '0'),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DB', 0),
         ],
 
         'cache' => [
-            'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => env('REDIS_CACHE_DB', '1'),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_CACHE_DB', 1),
         ],
 
     ],

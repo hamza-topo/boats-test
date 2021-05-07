@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Region\RegionRepositoryInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Region;
+
 class SearchController extends Controller
 {
 
@@ -22,7 +22,5 @@ class SearchController extends Controller
 
     }
 
-    public function index(){
-        return Region::all();
-    }
+    
 }
