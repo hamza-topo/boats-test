@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+import api from '../api/request';
+
 export default {
   data() {
     return {
@@ -25,8 +28,8 @@ export default {
     autoComplete() {
           //make a delay time between cals
           setTimeout(() =>
-                axios
-                    .get("/api/search", { params: { query: this.query } })
+                api
+                    .search("/api/search", { params: { query: this.query } })
                     .then((response) => {
                       this.$root.$emit('getResult', response.data.data);
                     }) 
