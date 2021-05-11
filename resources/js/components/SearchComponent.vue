@@ -8,6 +8,8 @@
         ref="input"
         v-model="query"
         @keydown.up="up"
+        @keydown.down="down"
+        @keydown.enter="selectItem"
         v-on:input="autoComplete"
         placeholder="Pays, Ville, Port...">
       <div class="options" ref="optionsList">
@@ -29,6 +31,7 @@ import api from '../api/request';
     data() {
       return {
         itemHeight: 39,
+        selectedItem: null,
         selected: 0,
         query: '',
         title : 'Taper votre Destination...',
@@ -71,6 +74,25 @@ import api from '../api/request';
         console.log(this.query+" query : "+this.selected)
         this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
       },
+      up() {
+        if (this.selected == 0) {
+          return;
+        }
+        this.selected -= 1;
+        this.scrollToItem();
+      },
+      down() {
+        if (this.selected >= this.results.length - 1) {
+          return;
+        }
+        this.selected += 1;
+        this.scrollToItem();
+      },
+      scrollToItem() {
+        this.$refs.optionsList.scrollTop = this.selected * this.itemHeight;
+      }
+
+      
     },
     
   }
