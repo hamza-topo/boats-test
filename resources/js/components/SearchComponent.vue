@@ -11,7 +11,10 @@
         @keydown.down="down"
         @keydown.enter="selectItem"
         v-on:input="autoComplete"
+        @keydown.esc="clearQuery"
         placeholder="Pays, Ville, Port...">
+        <button @click="showResults">Rechercher</button>
+        
       <div class="options" ref="optionsList">
         <ul>
           <li v-for="(result, index) in results"
@@ -23,6 +26,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -65,15 +69,13 @@ import api from '../api/request';
         if (!this.results.length) {
           return;
         }
-        this.selectedItem = this.results[this.selected];
+       this.selectedItem = this.query
         this.visible = false;
         if (this.shouldReset) {
           this.query = '';
           this.selected = 0;
         }
-        console.log(this.query+" query : "+this.selected)
-        this.selectedItem = this.query
-       // this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
+        //lunch an Event to get the Destination
       },
       up() {
         if (this.selected == 0) {
@@ -91,6 +93,18 @@ import api from '../api/request';
       },
       scrollToItem() {
         this.$refs.optionsList.scrollTop = this.selected * this.itemHeight;
+      },
+      clearQuery()
+      {
+        this.results = [];
+        this.selectedItem=null,
+        this.visible = false;
+        console.log(this.results);
+
+      },
+      showResults()
+      {
+        alert('the selected item is'+this.selectedItem)
       }
     },
     

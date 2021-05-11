@@ -2063,6 +2063,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2106,16 +2110,14 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      this.selectedItem = this.results[this.selected];
+      this.selectedItem = this.query;
       this.visible = false;
 
       if (this.shouldReset) {
         this.query = '';
         this.selected = 0;
-      }
+      } //lunch an Event to get the Destination
 
-      console.log(this.query + " query : " + this.selected);
-      this.selectedItem = this.query; // this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
     },
     up: function up() {
       if (this.selected == 0) {
@@ -2135,6 +2137,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     scrollToItem: function scrollToItem() {
       this.$refs.optionsList.scrollTop = this.selected * this.itemHeight;
+    },
+    clearQuery: function clearQuery() {
+      this.results = [];
+      this.selectedItem = null, this.visible = false;
+      console.log(this.results);
+    },
+    showResults: function showResults() {
+      alert('the selected item is' + this.selectedItem);
     }
   }
 });
@@ -38701,6 +38711,18 @@ var render = function() {
                   return null
                 }
                 return _vm.selectItem($event)
+              },
+              function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "esc", 27, $event.key, [
+                    "Esc",
+                    "Escape"
+                  ])
+                ) {
+                  return null
+                }
+                return _vm.clearQuery($event)
               }
             ],
             input: [
@@ -38714,6 +38736,10 @@ var render = function() {
             ]
           }
         }),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.showResults } }, [
+          _vm._v("Rechercher")
+        ]),
         _vm._v(" "),
         _c("div", { ref: "optionsList", staticClass: "options" }, [
           _c(
