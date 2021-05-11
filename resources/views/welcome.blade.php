@@ -70,4 +70,5 @@
         </div>
     </body>
     <script src="{{ mix('/js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.js"></script>
 </html>
