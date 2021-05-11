@@ -2115,7 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       console.log(this.query + " query : " + this.selected);
-      this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
+      this.selectedItem = this.query; // this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
     },
     up: function up() {
       if (this.selected == 0) {
@@ -6595,7 +6595,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.autocomplete[data-v-89b0c3cc] {\r\n    width: 100%;\r\n    position: relative;\n}\n.input[data-v-89b0c3cc] {\r\n    height: 40px;\r\n    border-radius: 3px;\r\n    border: 2px solid lightgray;\r\n    box-shadow: 0 0 10px #eceaea;\r\n    font-size: 25px;\r\n    padding-left: 10px;\r\n    padding-top: 10px;\r\n    cursor: text;\n}\n.close[data-v-89b0c3cc] {\r\n    position: absolute;\r\n    right: 2px;\r\n    top: 4px;\r\n    background: none;\r\n    border: none;\r\n    font-size: 30px;\r\n    color: lightgrey;\r\n    cursor: pointer;\n}\n.placeholder[data-v-89b0c3cc] {\r\n    position: absolute;\r\n    top: 11px;\r\n    left: 11px;\r\n    font-size: 25px;\r\n    color: #d0d0d0;\r\n    pointer-events: none;\n}\n.popover[data-v-89b0c3cc] {\r\n    min-height: 50px;\r\n    border: 2px solid lightgray;\r\n    position: absolute;\r\n    top: 46px;\r\n    left: 0;\r\n    right: 0;\r\n    background: #fff;\r\n    border-radius: 3px;\r\n    text-align: center;\n}\n.popover input[data-v-89b0c3cc] {\r\n    width: 95%;\r\n    margin-top: 5px;\r\n    height: 40px;\r\n    font-size: 16px;\r\n    border-radius: 3px;\r\n    border: 1px solid lightgray;\r\n    padding-left: 8px;\n}\n.options[data-v-89b0c3cc] {\r\n    max-height: 150px;\r\n    overflow-y: scroll;\r\n    margin-top: 5px;\n}\n.options ul[data-v-89b0c3cc] {\r\n    list-style-type: none;\r\n    text-align: left;\r\n    padding-left: 0;\n}\n.options ul li[data-v-89b0c3cc] {\r\n    border-bottom: 1px solid lightgray;\r\n    padding: 10px;\r\n    cursor: pointer;\r\n    background: #f1f1f1;\n}\n.options ul li[data-v-89b0c3cc]:first-child {\r\n    border-top: 2px solid #d6d6d6;\n}\n.options ul li[data-v-89b0c3cc]:not(.selected):hover {\r\n    background: #8c8c8c;\r\n    color: #fff;\n}\n.options ul li.selected[data-v-89b0c3cc] {\r\n    background: #58bd4c;\r\n    color: #fff;\r\n    font-weight: 600;\n}\r\n", ""]);
+exports.push([module.i, "\n.autocomplete[data-v-89b0c3cc] {\r\n    width: 80%;\r\n    position: relative;\n}\n.input[data-v-89b0c3cc] {\r\n    height: 40px;\r\n    border-radius: 3px;\r\n    border: 2px solid lightgray;\r\n    box-shadow: 0 0 10px #eceaea;\r\n    font-size: 25px;\r\n    padding-left: 10px;\r\n    padding-top: 10px;\r\n    cursor: text;\n}\n.close[data-v-89b0c3cc] {\r\n    position: absolute;\r\n    right: 2px;\r\n    top: 4px;\r\n    background: none;\r\n    border: none;\r\n    font-size: 30px;\r\n    color: lightgrey;\r\n    cursor: pointer;\n}\n.placeholder[data-v-89b0c3cc] {\r\n    position: absolute;\r\n    top: 11px;\r\n    left: 11px;\r\n    font-size: 25px;\r\n    color: #d0d0d0;\r\n    pointer-events: none;\n}\n.popover[data-v-89b0c3cc] {\r\n    min-height: 50px;\r\n    border: 2px solid lightgray;\r\n    position: absolute;\r\n    top: 46px;\r\n    left: 0;\r\n    right: 0;\r\n    background: #fff;\r\n    border-radius: 3px;\r\n    text-align: center;\n}\n.popover input[data-v-89b0c3cc] {\r\n    width: 95%;\r\n    margin-top: 5px;\r\n    height: 40px;\r\n    font-size: 16px;\r\n    border-radius: 3px;\r\n    border: 1px solid lightgray;\r\n    padding-left: 8px;\n}\n.options[data-v-89b0c3cc] {\r\n    max-height: 150px;\r\n    overflow-y: scroll;\r\n    margin-top: 5px;\n}\n.options ul[data-v-89b0c3cc] {\r\n    list-style-type: none;\r\n    text-align: left;\r\n    padding-left: 0;\n}\n.options ul li[data-v-89b0c3cc] {\r\n    border-bottom: 1px solid lightgray;\r\n    padding: 10px;\r\n    cursor: pointer;\r\n    background: #f1f1f1;\n}\n.options ul li[data-v-89b0c3cc]:first-child {\r\n    border-top: 2px solid #d6d6d6;\n}\n.options ul li[data-v-89b0c3cc]:not(.selected):hover {\r\n    background: #8c8c8c;\r\n    color: #fff;\n}\n.options ul li.selected[data-v-89b0c3cc] {\r\n    background: #58bd4c;\r\n    color: #fff;\r\n    font-weight: 600;\n}\r\n", ""]);
 
 // exports
 
@@ -38614,7 +38614,7 @@ var render = function() {
     _c("div", {
       staticClass: "input",
       domProps: {
-        textContent: _vm._s(_vm.selectedItem ? _vm.selectedItem.query : "")
+        textContent: _vm._s(_vm.selectedItem ? _vm.selectedItem : "")
       },
       on: { click: _vm.toggleVisible }
     }),

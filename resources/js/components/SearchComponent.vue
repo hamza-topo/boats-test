@@ -1,6 +1,6 @@
 <template>
   <div class="autocomplete">
-    <div class="input" @click="toggleVisible" v-text="selectedItem ? selectedItem.query : ''"></div>
+    <div class="input" @click="toggleVisible" v-text="selectedItem ? selectedItem : ''"></div>
     <div class="placeholder" v-if="selectedItem == null" v-text="title"></div>
     <button class="close" @click="selectedItem = null" v-if="selectedItem">x</button>
     <div class="popover" v-show="visible">
@@ -72,7 +72,8 @@ import api from '../api/request';
           this.selected = 0;
         }
         console.log(this.query+" query : "+this.selected)
-        this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
+        this.selectedItem = this.query
+       // this.$emit('selected', JSON.parse(JSON.stringify(this.selectedItem)));
       },
       up() {
         if (this.selected == 0) {
@@ -91,8 +92,6 @@ import api from '../api/request';
       scrollToItem() {
         this.$refs.optionsList.scrollTop = this.selected * this.itemHeight;
       }
-
-      
     },
     
   }
@@ -100,7 +99,7 @@ import api from '../api/request';
 
 <style scoped>
 .autocomplete {
-    width: 100%;
+    width: 80%;
     position: relative;
 }
 .input {
