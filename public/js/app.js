@@ -2076,6 +2076,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2083,8 +2093,8 @@ __webpack_require__.r(__webpack_exports__);
       itemHeight: 39,
       selectedItem: null,
       selected: 0,
-      query: '',
-      title: 'Taper votre Destination...',
+      query: "",
+      title: "Taper votre Destination...",
       visible: false,
       results: [],
       enableButton: true
@@ -2099,9 +2109,14 @@ __webpack_require__.r(__webpack_exports__);
         _this.$refs.input.focus();
       }, 50);
     },
-    autoComplete: function autoComplete() {
+    len: _.debounce(function () {
+      console.log("OOOOK");
+    }, 300 // time
+    ),
+    autoComplete: _.debounce(function () {
       var _this2 = this;
 
+      //debounce the axios  call
       _api_request__WEBPACK_IMPORTED_MODULE_0__["default"].search("/api/search", {
         params: {
           query: this.query
@@ -2109,7 +2124,8 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.results = response.data.data;
       });
-    },
+    }, 300 // time
+    ),
     itemClicked: function itemClicked(index) {
       this.selected = index;
       this.selectItem();
@@ -2124,7 +2140,7 @@ __webpack_require__.r(__webpack_exports__);
       this.enableButton = false;
 
       if (this.shouldReset) {
-        this.query = '';
+        this.query = "";
         this.selected = 0;
       }
     },
@@ -2156,11 +2172,11 @@ __webpack_require__.r(__webpack_exports__);
 
       this.enableButton = false; //empty query
 
-      this.query = '';
-      this.$root.$emit('getResult', []);
+      this.query = "";
+      this.$root.$emit("getResult", []);
     },
     showResults: function showResults() {
-      this.$root.$emit('getResult', this.results[this.selected]);
+      this.$root.$emit("getResult", this.results[this.selected]);
     }
   }
 });
@@ -6621,7 +6637,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.autocomplete[data-v-89b0c3cc] {\r\n    width: 80%;\r\n    position: relative;\n}\n.input[data-v-89b0c3cc] {\r\n    height: 40px;\r\n    border-radius: 3px;\r\n    border: 2px solid lightgray;\r\n    box-shadow: 0 0 10px #eceaea;\r\n    font-size: 25px;\r\n    padding-left: 10px;\r\n    padding-top: 10px;\r\n    cursor: text;\n}\n.close[data-v-89b0c3cc] {\r\n    position: absolute;\r\n    right: 2px;\r\n    top: 4px;\r\n    background: none;\r\n    border: none;\r\n    font-size: 30px;\r\n    color: lightgrey;\r\n    cursor: pointer;\n}\n.placeholder[data-v-89b0c3cc] {\r\n    position: absolute;\r\n    top: 11px;\r\n    left: 11px;\r\n    font-size: 25px;\r\n    color: #d0d0d0;\r\n    pointer-events: none;\n}\n.popover[data-v-89b0c3cc] {\r\n    min-height: 50px;\r\n    border: 2px solid lightgray;\r\n    position: absolute;\r\n    top: 46px;\r\n    left: 0;\r\n    right: 0;\r\n    background: #fff;\r\n    border-radius: 3px;\r\n    text-align: center;\n}\n.popover input[data-v-89b0c3cc] {\r\n    width: 95%;\r\n    margin-top: 5px;\r\n    height: 40px;\r\n    font-size: 16px;\r\n    border-radius: 3px;\r\n    border: 1px solid lightgray;\r\n    padding-left: 8px;\n}\n.options[data-v-89b0c3cc] {\r\n    max-height: 150px;\r\n    overflow-y: scroll;\r\n    margin-top: 5px;\n}\n.options ul[data-v-89b0c3cc] {\r\n    list-style-type: none;\r\n    text-align: left;\r\n    padding-left: 0;\n}\n.options ul li[data-v-89b0c3cc] {\r\n    border-bottom: 1px solid lightgray;\r\n    padding: 10px;\r\n    cursor: pointer;\r\n    background: #f1f1f1;\n}\n.options ul li[data-v-89b0c3cc]:first-child {\r\n    border-top: 2px solid #d6d6d6;\n}\n.options ul li[data-v-89b0c3cc]:not(.selected):hover {\r\n    background: #8c8c8c;\r\n    color: #fff;\n}\n.options ul li.selected[data-v-89b0c3cc] {\r\n    background: #58bd4c;\r\n    color: #fff;\r\n    font-weight: 600;\n}\r\n", ""]);
+exports.push([module.i, "\n.autocomplete[data-v-89b0c3cc] {\r\n  width: 80%;\r\n  position: relative;\n}\n.input[data-v-89b0c3cc] {\r\n  height: 40px;\r\n  border-radius: 3px;\r\n  border: 2px solid lightgray;\r\n  box-shadow: 0 0 10px #eceaea;\r\n  font-size: 25px;\r\n  padding-left: 10px;\r\n  padding-top: 10px;\r\n  cursor: text;\n}\n.close[data-v-89b0c3cc] {\r\n  position: absolute;\r\n  right: 2px;\r\n  top: 4px;\r\n  background: none;\r\n  border: none;\r\n  font-size: 30px;\r\n  color: lightgrey;\r\n  cursor: pointer;\n}\n.placeholder[data-v-89b0c3cc] {\r\n  position: absolute;\r\n  top: 11px;\r\n  left: 11px;\r\n  font-size: 25px;\r\n  color: #d0d0d0;\r\n  pointer-events: none;\n}\n.popover[data-v-89b0c3cc] {\r\n  min-height: 50px;\r\n  border: 2px solid lightgray;\r\n  position: absolute;\r\n  top: 46px;\r\n  left: 0;\r\n  right: 0;\r\n  background: #fff;\r\n  border-radius: 3px;\r\n  text-align: center;\n}\n.popover input[data-v-89b0c3cc] {\r\n  width: 95%;\r\n  margin-top: 5px;\r\n  height: 40px;\r\n  font-size: 16px;\r\n  border-radius: 3px;\r\n  border: 1px solid lightgray;\r\n  padding-left: 8px;\n}\n.options[data-v-89b0c3cc] {\r\n  max-height: 150px;\r\n  overflow-y: scroll;\r\n  margin-top: 5px;\n}\n.options ul[data-v-89b0c3cc] {\r\n  list-style-type: none;\r\n  text-align: left;\r\n  padding-left: 0;\n}\n.options ul li[data-v-89b0c3cc] {\r\n  border-bottom: 1px solid lightgray;\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  background: #f1f1f1;\n}\n.options ul li[data-v-89b0c3cc]:first-child {\r\n  border-top: 2px solid #d6d6d6;\n}\n.options ul li[data-v-89b0c3cc]:not(.selected):hover {\r\n  background: #8c8c8c;\r\n  color: #fff;\n}\n.options ul li.selected[data-v-89b0c3cc] {\r\n  background: #58bd4c;\r\n  color: #fff;\r\n  font-weight: 600;\n}\r\n", ""]);
 
 // exports
 
@@ -38658,7 +38674,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("x")]
+          [_vm._v("\n    x\n  ")]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -38763,7 +38779,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(_vm._s(result.name_fr))]
+                [_vm._v("\n          " + _vm._s(result.name_fr) + "\n        ")]
               )
             }),
             0
