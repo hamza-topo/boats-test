@@ -2008,9 +2008,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38597,27 +38594,22 @@ var render = function() {
               _c(
                 "ul",
                 { attrs: { id: "extglobalnav" } },
-                [
-                  _vm._v(
-                    "\n          " + _vm._s(_vm.result.bases) + "\n          "
-                  ),
-                  _vm._l(_vm.result.bases, function(base) {
-                    return _c("li", { staticClass: "list-group-item" }, [
-                      _vm._v(
-                        "\n            Base : " +
-                          _vm._s(base.name_fr) +
-                          " | Type : " +
-                          _vm._s(base.base_type) +
-                          " | Pays :\n            " +
-                          _vm._s(base.contry_name) +
-                          " | Nombre de Boats : " +
-                          _vm._s(base.boats) +
-                          "\n          "
-                      )
-                    ])
-                  })
-                ],
-                2
+                _vm._l(_vm.result.bases, function(base) {
+                  return _c("li", { staticClass: "list-group-item" }, [
+                    _vm._v(
+                      "\n            Base : " +
+                        _vm._s(base.name_fr) +
+                        " | Type : " +
+                        _vm._s(base.base_type) +
+                        " | Pays :\n            " +
+                        _vm._s(base.contry_name) +
+                        " | Nombre de Boats : " +
+                        _vm._s(base.boats) +
+                        "\n          "
+                    )
+                  ])
+                }),
+                0
               )
             ])
           ])

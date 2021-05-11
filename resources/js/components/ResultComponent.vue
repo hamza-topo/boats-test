@@ -15,9 +15,6 @@
         <li>Bateau : {{ result.boat_count }}</li>
         <li>
           <ul id="extglobalnav">
-            {{
-              result.bases
-            }}
             <li class="list-group-item" v-for="base in result.bases">
               Base : {{ base.name_fr }} | Type : {{ base.base_type }} | Pays :
               {{ base.contry_name }} | Nombre de Boats : {{ base.boats }}
