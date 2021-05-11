@@ -13,8 +13,7 @@
         v-on:input="autoComplete"
         @keydown.esc="clearQuery"
         placeholder="Pays, Ville, Port...">
-        <button @click="showResults">Rechercher</button>
-        
+
       <div class="options" ref="optionsList">
         <ul>
           <li v-for="(result, index) in results"
@@ -25,6 +24,7 @@
         </ul>
       </div>
     </div>
+    <button @click="showResults" :disabled="enableButton">Rechercher</button>
   </div>
   
 </template>
@@ -40,7 +40,8 @@ import api from '../api/request';
         query: '',
         title : 'Taper votre Destination...',
         visible: false,
-        results:[]
+        results:[],
+        enableButton:true
       };
     },
     methods: {
@@ -55,13 +56,12 @@ import api from '../api/request';
            api.search("/api/search", { params: { query: this.query } })
                     .then((response) => {
                        this.results = response.data.data;
-                      //this.$root.$emit('getResult', );
                     }) 
          
       },
 
       itemClicked(index) {
-        console.log(index);
+       
         this.selected = index;
         this.selectItem();
       },
@@ -69,13 +69,13 @@ import api from '../api/request';
         if (!this.results.length) {
           return;
         }
-       this.selectedItem = this.query
+        this.selectedItem = this.query
         this.visible = false;
+        this.enableButton = false;
         if (this.shouldReset) {
           this.query = '';
           this.selected = 0;
         }
-        //lunch an Event to get the Destination
       },
       up() {
         if (this.selected == 0) {
@@ -96,15 +96,22 @@ import api from '../api/request';
       },
       clearQuery()
       {
+        //reset the results to empty
         this.results = [];
+        //set the selectedItem to none
         this.selectedItem=null,
+        //hide the dropdownResults
         this.visible = false;
-        console.log(this.results);
+        //disable the button search
+        this.enableButton = false;
+        //empty query
+        this.query = ''
 
+        this.$root.$emit('getResult',[])
       },
       showResults()
       {
-        alert('the selected item is'+this.selectedItem)
+        this.$root.$emit('getResult',this.results[this.selected])
       }
     },
     

@@ -1997,30 +1997,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      query: "",
-      results: []
+      displayResult: false,
+      result: []
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.$root.$on('getResult', function (results) {
-      _this.results = results;
-      console.log(results);
-    });
-  },
-  methods: {
-    //show only result contains the query value
-    showOnlyQuery: function showOnlyQuery(str) {
-      if (str.includes(this.query)) {
-        return true;
+    this.$root.$on("getResult", function (item) {
+      if (item) {
+        _this.result = item;
+        _this.displayResult = true;
+      } else {
+        _this.result = [];
+        _this.displayResult = false;
       }
-
-      return false;
-    }
+    });
   }
 });
 
@@ -2077,7 +2086,8 @@ __webpack_require__.r(__webpack_exports__);
       query: '',
       title: 'Taper votre Destination...',
       visible: false,
-      results: []
+      results: [],
+      enableButton: true
     };
   },
   methods: {
@@ -2097,11 +2107,10 @@ __webpack_require__.r(__webpack_exports__);
           query: this.query
         }
       }).then(function (response) {
-        _this2.results = response.data.data; //this.$root.$emit('getResult', );
+        _this2.results = response.data.data;
       });
     },
     itemClicked: function itemClicked(index) {
-      console.log(index);
       this.selected = index;
       this.selectItem();
     },
@@ -2112,12 +2121,12 @@ __webpack_require__.r(__webpack_exports__);
 
       this.selectedItem = this.query;
       this.visible = false;
+      this.enableButton = false;
 
       if (this.shouldReset) {
         this.query = '';
         this.selected = 0;
-      } //lunch an Event to get the Destination
-
+      }
     },
     up: function up() {
       if (this.selected == 0) {
@@ -2139,12 +2148,19 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.optionsList.scrollTop = this.selected * this.itemHeight;
     },
     clearQuery: function clearQuery() {
-      this.results = [];
-      this.selectedItem = null, this.visible = false;
-      console.log(this.results);
+      //reset the results to empty
+      this.results = []; //set the selectedItem to none
+
+      this.selectedItem = null, //hide the dropdownResults
+      this.visible = false; //disable the button search
+
+      this.enableButton = false; //empty query
+
+      this.query = '';
+      this.$root.$emit('getResult', []);
     },
     showResults: function showResults() {
-      alert('the selected item is' + this.selectedItem);
+      this.$root.$emit('getResult', this.results[this.selected]);
     }
   }
 });
@@ -38552,50 +38568,45 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.results.length > 0
-      ? _c("div", { staticClass: "panel-footer" }, [
-          _c(
-            "ul",
-            { staticClass: "list-group" },
-            _vm._l(_vm.results, function(result) {
-              return _c("li", { staticClass: "list-group-item" }, [
-                _vm._v(
-                  "\n          Boats : " +
-                    _vm._s(result.boat_count) +
-                    " | ports : " +
-                    _vm._s(result.bases.length) +
-                    "  | Name : " +
-                    _vm._s(result.name_fr) +
-                    "\n           "
-                ),
-                _c(
-                  "ul",
-                  { staticClass: "list-group" },
-                  _vm._l(result.bases, function(base) {
-                    return _vm.showOnlyQuery(base.name_fr)
-                      ? _c("li", { staticClass: "list-group-item" }, [
-                          _vm._v(
-                            "\n                   Base Name : " +
-                              _vm._s(base.name_fr) +
-                              " | Base Type : " +
-                              _vm._s(base.base_type) +
-                              " |  Contry : " +
-                              _vm._s(base.contry_name) +
-                              " | Boats Number : " +
-                              _vm._s(base.boats) +
-                              "\n                "
-                          )
-                        ])
-                      : _vm._e()
-                  }),
-                  0
-                )
-              ])
-            }),
-            0
-          )
-        ])
-      : _vm._e()
+    _c("div", { staticClass: "panel-footer" }, [
+      _c("ul", { staticClass: "list-group" }),
+      _vm._v(" "),
+      _vm.displayResult
+        ? _c("ul", { attrs: { id: "extglobalnav" } }, [
+            _c("li", [_vm._v("Nom : " + _vm._s(_vm.result.name_fr))]),
+            _vm._v(" "),
+            _c("li", [_vm._v("Bateau : " + _vm._s(_vm.result.boat_count))]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "ul",
+                { attrs: { id: "extglobalnav" } },
+                [
+                  _vm._v(
+                    "\n          " + _vm._s(_vm.result.bases) + "\n          "
+                  ),
+                  _vm._l(_vm.result.bases, function(base) {
+                    return _c("li", { staticClass: "list-group-item" }, [
+                      _vm._v(
+                        "\n            Base : " +
+                          _vm._s(base.name_fr) +
+                          " | Type : " +
+                          _vm._s(base.base_type) +
+                          " | Pays :\n            " +
+                          _vm._s(base.contry_name) +
+                          " | Nombre de Boats : " +
+                          _vm._s(base.boats) +
+                          "\n          "
+                      )
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -38737,10 +38748,6 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("button", { on: { click: _vm.showResults } }, [
-          _vm._v("Rechercher")
-        ]),
-        _vm._v(" "),
         _c("div", { ref: "optionsList", staticClass: "options" }, [
           _c(
             "ul",
@@ -38763,6 +38770,12 @@ var render = function() {
           )
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      { attrs: { disabled: _vm.enableButton }, on: { click: _vm.showResults } },
+      [_vm._v("Rechercher")]
     )
   ])
 }

@@ -1,51 +1,57 @@
 <template>
   <div>
-       <div class="panel-footer" v-if="results.length > 0">
-        <ul class="list-group">
-          <li class="list-group-item" v-for="result in results">
-            Boats : {{result.boat_count}} | ports : {{  result.bases.length }}  | Name : {{result.name_fr}}
+    <div class="panel-footer">
+      <ul class="list-group">
+        <!-- Boats : {{result.boat_count}} | ports : {{  result.bases.length }}  | Name : {{result.name_fr}}
              <ul class="list-group">
                   <li v-if="showOnlyQuery(base.name_fr)" class="list-group-item" v-for="base in result.bases">
                      Base Name : {{ base.name_fr }} | Base Type : {{base.base_type}} |  Contry : {{base.contry_name}} | Boats Number : {{base.boats}}
                   </li> 
-             </ul>
-          </li>
-        </ul>
-      </div>
+                  {{results}}
+             </ul> -->
+      </ul>
+      <ul id="extglobalnav" v-if="displayResult">
+        <li>Nom : {{ result.name_fr }}</li>
+        <li>Bateau : {{ result.boat_count }}</li>
+        <li>
+          <ul id="extglobalnav">
+            {{
+              result.bases
+            }}
+            <li class="list-group-item" v-for="base in result.bases">
+              Base : {{ base.name_fr }} | Type : {{ base.base_type }} | Pays :
+              {{ base.contry_name }} | Nombre de Boats : {{ base.boats }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      displayResult: false,
+      result: [],
+    };
+  },
 
-    data() {
-        return {
-        query: "",
-        results : [],
-        };
-    },
-
-    mounted(){
-                this.$root.$on('getResult', results => {
-                    this.results = results ;
-                    console.log(results);
-                });
-    }, 
-
-    methods : {
-            //show only result contains the query value
-                showOnlyQuery(str)
-                {
-                    if( str.includes(this.query)  ){
-                    return true;
-                    }
-                    return false;
-                }
-    }
-
-}
+  mounted() {
+    this.$root.$on("getResult", (item) => {
+      if (item) {
+        this.result = item;
+        this.displayResult = true;
+      }else{
+        this.result = [];
+        this.displayResult = false;
+      }
+     
+    });
+  },
+};
 </script>
 
 <style>
-
 </style>
